@@ -1,0 +1,17 @@
+.summaryContainer{
+    display:flex;
+    gap:0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+.coinSummary{
+    background-color: var(--brownish);
+    display:grid;
+    gap:1rem;
+    width:10rem;
+    border-radius: 0.5rem;
+    color:white;
+    text-align: center;
+    text-transform: uppercase;
+    padding:0.5rem;
+}
