@@ -23,27 +23,25 @@ const options = {
 
 
 function QueryData() {
-  const {isLoading, data, isError, error} = useQuery("coinsData", 
-  ()=>{
-  axios.request(options).then(function (response) {
-    console.log(response.data);
-  }).catch(function (error) {
-    console.error(error);
-  });
-    }
+  
+  const getData = axios.request(options)
+  const {data, isLoading, isError, error, isFetching} = useQuery("getData", ()=>getData,
+  {
+    
+  }
   )
-
-  console.log("this is data", data)
-
+  
   if (isLoading){
     console.log("Loading");
-    return <h1>{isLoading}</h1>
-  }
-  else if (isError){
+    return <p>Loading</p>
+  } else if (isError){
     console.log("error");
-    return <h1>{error.message}</h1>
+    return <p>{error}</p>
   }
-  
+
+  console.log(data?.data?.data?.stats)
+
+
   return (
     <div>
       <h1>React Query Page</h1>
