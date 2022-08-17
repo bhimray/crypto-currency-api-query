@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from "react-query"
 import axios from 'axios'
-
+import { createContext } from 'react';
+import HomePage from '../Pages/HomePage';
 
 const options = {
   method: 'GET',
@@ -21,15 +22,11 @@ const options = {
   }
 };
 
+export const DataContext = createContext() //i am trying to pass data through this context
 
-function QueryData() {
-  
+function QueryProvider({children}) {
   const getData = axios.request(options)
-  const {data, isLoading, isError, error, isFetching} = useQuery("getData", ()=>getData,
-  {
-    
-  }
-  )
+  const {data, isLoading, isError, error, isFetching} = useQuery("getData", ()=>getData,{})
   
   if (isLoading){
     console.log("Loading");
@@ -39,14 +36,15 @@ function QueryData() {
     return <p>{error}</p>
   }
 
-  console.log(data?.data?.data?.stats)
-
-
+  const coinRanking= data?.data?.data.stats
+  
   return (
     <div>
-      <h1>React Query Page</h1>
+      <DataContext.Provider value={{coinRanking}}>
+        {children}
+      </DataContext.Provider>
     </div>
   )
 }
 
-export default QueryData
+export default QueryProvider

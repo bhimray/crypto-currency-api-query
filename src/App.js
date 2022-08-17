@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from "react-query"
 import './App.css'
-import HomePage from './components/HomePage'
-import QueryData from './components/DataQuery/dataQuery'
+import HomePage from './components/Pages/HomePage'
+import QueryProvider,{DataContext} from './components/DataQuery/dataQuery'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 const queryClient = new QueryClient()
@@ -12,11 +12,11 @@ function App() {
     <div>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+        <QueryProvider>
           <Routes>
-            <Route path="/" element={<HomePage/>}>
-            </Route>
-            <Route path="/queryData" element={<QueryData/>}></Route>
+            <Route path="/" element={<HomePage/>}></Route>
           </Routes>
+        </QueryProvider>
         </BrowserRouter>
         {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right"/> */}
       </QueryClientProvider>
